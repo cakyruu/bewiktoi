@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Piazzolla:ital,wght@0,200;1,100&display=swap');
+</style>
+<style>
+@media screen and (max-width: 1280px) {div.contentblock {width: 1200px;} } 
+@media screen and (max-width: 1140px) { div.contentblock {width: 1024px;} } 
+@media screen and (max-width: 992px) { div. contentblock {width: 970px;} } 
+
+* {
+   box-sizing: border-box; border-radius: 10px;
+}
+</style>
+
+<style>
+    body {
+  height:100%;
+        background: url(gbtfrdbdrfbhdfbdfgtn.jpg)  ;
+        background-size: 100%;    
+  background-attachment: fixed;
+  background-position: left, right;
+ }
+</style>
+
+
+
+<style>
+.hgh{
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+    }
+
+    .timer__items {
+      display: flex;
+      font-size: 25px;
+      color: #FBB03B;
+    }
+
+
+    .timer__item {
+      position: relative;
+      min-width: 60px;
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 15px;
+    }
+
+
+    .timer__item::before {
+      content: attr(data-title);
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      font-size: 10px;
+    }
+
+
+    .timer__item:not(:last-child)::after {
+      content: ':';
+      position: absolute;
+      right: -15px;
+    }
+  </style>
+
+
+
+<style>
+* {
+   box-sizing: border-box; border-radius: 10px;
+}
+.transparent {
+   position: relative;
+   max-width: 300px;
+   max-height: 300px;
+   padding: 40px 20px;
+   margin: 50px auto 0;
+   background-image: url(bewik.jpg);
+   background-size: cover;
+
+}
+.transparent:before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(to right bottom, rgba(235, 209, 43, .5), rgba(244, 246, 246, .5));
+}
+.form-inner {
+   position: relative;
+}
+.form-inner h3 {
+   position: relative;
+   margin-top: 0;
+   color: black;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 300;
+   font-size: 20px;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+}
+.form-inner label {
+   display: block;
+   padding-left: 15px;
+   font-family: 'Roboto', sans-serif;
+   color: rgba(255, 255, 255, .6);
+   text-transform: uppercase;
+   font-size: 14px;
+}
+.form-inner input {
+   display: block;
+   width: 100%;
+   padding: 0 15px;
+   margin: 10px 0 15px;
+   border-width: 0;
+   line-height: 40px;
+   border-radius: 20px;
+   color: white;
+   background: rgba(255, 255, 255, .2);
+   font-family: 'Roboto', sans-serif;
+
+}
+
+.form-inner textarea {
+   display: block;
+   width: 100%;
+   height: 50px;
+   padding: 0 15px;
+   margin: 10px 0 15px;
+   border-width: 0;
+   line-height: 40px;
+   border-radius: 20px;
+   color: white;
+   background: rgba(255, 255, 255, .2);
+   font-family: 'Roboto', sans-serif;
+}
+
+.form-inner input[type="submit"] {
+   background: #2C96CD;
+
+
+
+}
+  </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // конечная дата
+      const deadline = new Date(new Date().getFullYear(), new Date().getMonth() + 0, 20);
+      // id таймера
+      let timerId = null;
+      // склонение числительных
+      function declensionNum(num, words) {
+        return words[(num % 100 > 4 && num % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(num % 10 < 5) ? num % 10 : 5]];
+      }
+      // вычисляем разницу дат и устанавливаем оставшееся времени в качестве содержимого элементов
+      function countdownTimer() {
+        const diff = deadline - new Date();
+        if (diff <= 0) {
+          clearInterval(timerId);
+        }
+        const days = diff > 0 ? Math.floor(diff / 1000 / 60 / 60 / 24) : 0;
+        const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0;
+        const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0;
+        const seconds = diff > 0 ? Math.floor(diff / 1000) % 60 : 0;
+        $days.textContent = days < 10 ? '0' + days : days;
+        $hours.textContent = hours < 10 ? '0' + hours : hours;
+        $minutes.textContent = minutes < 10 ? '0' + minutes : minutes;
+        $seconds.textContent = seconds < 10 ? '0' + seconds : seconds;
+        $days.dataset.title = declensionNum(days, ['день', 'дня', 'дней']);
+        $hours.dataset.title = declensionNum(hours, ['час', 'часа', 'часов']);
+        $minutes.dataset.title = declensionNum(minutes, ['минута', 'минуты', 'минут']);
+        $seconds.dataset.title = declensionNum(seconds, ['секунда', 'секунды', 'секунд']);
+      }
+      // получаем элементы, содержащие компоненты даты
+      const $days = document.querySelector('.timer__days');
+      const $hours = document.querySelector('.timer__hours');
+      const $minutes = document.querySelector('.timer__minutes');
+      const $seconds = document.querySelector('.timer__seconds');
+      // вызываем функцию countdownTimer
+      countdownTimer();
+      // вызываем функцию countdownTimer каждую секунду
+      timerId = setInterval(countdownTimer, 1000);
+    });
+  </script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ариананын бешик тоюна чакыруу!</title>       
+
+
+
+</head>
+<body>
+
+
+
+<center>
+<img src="foto.png" style="width: 80%; height: 80%;"> <center>
+<center><h7 style="font-family:piazzolla; color: #000075 ; "> астына жылдырыңыз </h7></center>
+<center>
+<audio controls="controls" autoplay style="margin-top:20px; width:80%; height: 40px; ">
+<source src="nelya-aldey-yry.mp3" type="audio/mp3">
+</audio></center>
+
+<div class="element-animation">
+<center><h4 style="family=Lora; color:#873600; margin-top: 30px; ">Урматтуу коноктор!</h4></center>
+</div>
+
+ <div class="element-animation">
+<center><h5 style="font-family:piazzolla; color:#922B21; margin-top: 20px; ">Сиздерди кызыбыз Ариананын <br> 
+бешик тоюна арналган <br>
+салтанатка, кадырлуу <br> коногубуз болуп, ак батаңыздарды <br> берип кетүүгө чакырабыз! </h7></center>
+</div>
+
+<center>
+<img src="photo_5377512265814756907_y.jpg"style="width: 80%; height: 80%;"> <center>
+
+
+ <div class="element-animation">
+<center><h6 style="font-family:piazzolla; color: #A04000; margin-top: 30px; ">"Соң көл" рестораны
+</h6></center>
+<center><h6 style="font-family:piazzolla; color:#A04000; margin-top: 0px; ">Бишкек шаары, 7 апрель көчөсу 1д/1
+</h6></center>
+</div>
+<center>
+<div style="margin-top: 20px;">
+
+<a href="https://go.2gis.com/eu1uc"><img src="hthf.png" style="width: 35px; height: 35px;"></a>
+<a href="https://www.instagram.com/son_kol_grand/?igshid=NTc4MTIwNjQ2YQ%3D%3D"><img src="rtgr.png" style="width: 35px; height: 35px;"></a>
+</div>
+</center>
+<div class="element-animation">
+<center><h5 style="font-family:piazzolla; color: #A04000; margin-top: 50px; ">Той ээлери:
+</h5></center>
+<center><h5 style="font-family:piazzolla; color:#922B21; margin-top: 0px; ">Бекболот, Гүлнур
+</h5></center>
+</div>
+
+<div class="element-animation">
+<center><h6 style="font-family:piazzolla; color: #2D4596; margin-top: 50px; ">Тойдун башталарына:
+</h6></center>
+</div>
+
+ <div class="element-animation">
+<center>
+ <div class="timer" >
+  <div class="hgh">
+    <div class="timer__items" >
+
+      <div class="timer__item timer__days">00</div>
+      <div class="timer__item timer__hours">00</div>
+      <div class="timer__item timer__minutes">00</div>
+      <div class="timer__item timer__seconds">00</div>
+    </div></div>
+  </div>
+</center></div>
+<center><h7 style="font-family:piazzolla; color: #2D4596; margin-top: 40px; height: 40px; ">күн калды
+</h7></center>
+
+<center>
+
+<form class="transparent"method="post" id="form">
+<div class="form-inner"> 
+<h3> Тойго келесизби?</h3>
+
+<input type="text" name="name" placeholder="Ооба/жок"   minlength="2" maxlength="20" />
+<label style="color:black;">Атыңызды жазыңыз</label>
+    <textarea
+          name="message"
+          maxlength="100"
+          id="message"
+          cols="30"
+          rows="4"
+          placeholder="Эркин-Эллада"
+         
+        ></textarea>
+<input type="submit" value="Жиберүү" style="color:white;">
+</div>
+</form>
+<script>
+
+
+     const URL_APP =     "https://script.google.com/macros/s/AKfycbzO2R4QFDBn2f-PPzYYup880U36GrZTNy_rsUvuXZUYaOxYnm_W2kySkEqKngzfsy30CA/exec";
+
+      
+      const form = document.querySelector("#form");
+
+  
+      form.action = URL_APP;
+
+    
+      function isFilled(details) {
+        const { name } = details;
+        if (!name) return false;
+       
+        return true;
+      }
+
+      form.addEventListener("submit", async (ev) => {
+       
+        ev.preventDefault();
+
+        const name = document.querySelector("[name=name]");
+      
+        const message = document.querySelector("[name=message]");
+      
+        let details = {
+          name: name.value.trim(),
+      
+          message: message.value.trim(),
+      
+        };
+
+        if (!isFilled(details)) return;
+
+      
+        let formBody = [];
+        for (let property in details) {
+       
+          let encodedKey = encodeURIComponent(property);
+          let encodedValue = encodeURIComponent(details[property]);
+          formBody.push(encodedKey + "=" + encodedValue);
+        }
+     
+        formBody = formBody.join("&");
+
+   
+        const result = await fetch(URL_APP, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          cors: "no-cors",
+          body: formBody,
+        })
+          .then((res) => res.json())
+          .catch((err) => alert("Ошибка!"))
+     
+          
+         if( result.type === 'success' ) {
+            name.value = '';
+            message.value = '';
+           alert('Жообуңузга рахмат!')
+         }
+         if( result.type === 'error' ) {            
+           alert(`Ошибка( ${result.errors}`)
+         }
+
+
+      });
+
+</script>
+  
+
+<center><h7 style="font-family:piazzolla; color: #922B21 ; margin-top: 40px;"> Жообуңузду 15 августка <br> чейин жибериңиз </h7></center> 
+<div class="element-animation">
+<center><a href="https://t.me/toidogufoto"><img src="oooo.png" style="width:60%; margin-top: 30px;"></a></center>
+</div>
+
+<center><h7 style="font-family:piazzolla; color: #922B21 ; margin-top: 40px;"> Бардыгыңыздарды күтөбүз!</h7></center> 
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https: //fonts.googleapis.com/css2?family= Piazzolla :wght@100 & display=swap" rel="stylesheet">
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
